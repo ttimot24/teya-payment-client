@@ -11,7 +11,7 @@ class TeyaClient
         ['headers' => ['Accept' => 'application/json']]
     ];
 
-    private $production = 'https://test.borgun.is/rpgapi';
+    private $production = 'https://borgun.is/rpgapi';
     private $sandbox = 'https://test.borgun.is/rpgapi';
 
     public function __construct($config = [])   
