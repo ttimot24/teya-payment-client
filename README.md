@@ -1,2 +1,2 @@
-# teya-pament-client
+# teya-payment-client
 PHP Client for Teya Payment Gateway

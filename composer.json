@@ -5,6 +5,9 @@
     "require": {
         "guzzlehttp/guzzle": "^7.9"
     },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
