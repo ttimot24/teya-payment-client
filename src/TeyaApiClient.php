@@ -24,7 +24,7 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "PreAuthorization";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(trim("/rpgapi/api/payment"), $data);
+        $response = $this->http->post(trim("/rpg/api/payment"), $data);
 
         return $response->getBody();
     }
@@ -34,14 +34,14 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "Sale";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(trim("/rpgapi/api/payment"), $data);
+        $response = $this->http->post(trim("/rpg/api/payment"), $data);
 
         return $response->getBody();
     }
 
     public function transaction($id){
 
-        $response = $this->http->get("/rpgapi/api/payment/".$id);
+        $response = $this->http->get("/rpg/api/payment/".$id);
 
         return $response->getBody();
     }

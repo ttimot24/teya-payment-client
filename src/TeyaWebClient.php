@@ -5,7 +5,7 @@ namespace Ttimot24\TeyaPayment;
 class TeyaWebClient extends TeyaClientBase
 {
 
-    protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey'];
+    protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey', 'RedirectSuccess', 'RedirectSuccessServer'];
 
     protected $defaultConfig = [
         'environment' => 'sandbox',
@@ -18,7 +18,7 @@ class TeyaWebClient extends TeyaClientBase
 
     public function getSignature($data): string {
        
-        $hash_content = $this->getConfig('MerchantId')."|https://borgun.is/success|https://borgun.is/success_server|".$data['orderid']."|".$data['amount']."|".$data['currency'];
+        $hash_content = $this->getConfig('MerchantId')."|".$this->getConfig('RedirectSuccess')."|".$this->getConfig('RedirectSuccessServer')."|".$data['orderid']."|".$data['amount']."|".$data['currency'];
 
         return hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
