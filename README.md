@@ -6,3 +6,11 @@
 Teya PHP Client Library is a PHP package designed to interact with the Teya API, enabling seamless integration of Teya's services into PHP applications. It provides a structured and easy-to-use interface for making API requests, handling authentication, and managing data exchanges. The library simplifies complex API interactions by offering pre-built methods for common operations, ensuring developers can efficiently integrate Teya's features with minimal effort. Ideal for businesses and developers looking to incorporate Teya's payment and transactional services into their PHP-based systems.
 
 [https://teya.com](https://teya.com)
+
+### Install
+```sh
+composer require ttimot24/teya-payment-client
+```
+
+### Contribution
+Contributions are welcome! If you'd like to improve this project, fork the repository, create a new branch, and submit a pull request. Please follow best practices and ensure your code is clean and well-documented.  
