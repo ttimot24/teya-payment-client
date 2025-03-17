@@ -19,5 +19,8 @@
             "name": "Timot Tarjani",
             "email": "ttimotster@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
 }
