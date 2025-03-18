@@ -8,7 +8,7 @@ class TeyaWebClientTest extends TestCase {
 
     protected function setUp(): void {
 
-        $this->client = new Ttimot24\TeyaPayment\TeyaWebClient([
+        $this->client = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
             'MerchantId' => '9256684', 
             'PaymentGatewayId' => 7, 
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
