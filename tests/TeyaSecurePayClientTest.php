@@ -21,7 +21,7 @@ class TeyaWebClientTest extends TestCase {
 
     public function testSignatureCalulation(){
 
-        $signatureClient = new Ttimot24\TeyaPayment\TeyaWebClient([
+        $signatureClient = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
             'MerchantId' => '9123456', 
             'PaymentGatewayId' => 16, 
             'SecretKey' => '1234567890abcdef',

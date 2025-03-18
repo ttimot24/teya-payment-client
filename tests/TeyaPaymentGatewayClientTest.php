@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class TeyaApiClientTest extends TestCase {
+class TeyaPaymentGatewayClientTest extends TestCase {
 
     public function testCreateTransaction(){
 
@@ -18,7 +18,7 @@ class TeyaApiClientTest extends TestCase {
             ]
         ];
 
-        $client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'log_enabled' => true, 'log_level' => 'debug']);
+        $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'log_enabled' => true, 'log_level' => 'debug']);
 
         $response = $client->payment($payment);
         $this->assertEquals(201, $response->getStatusCode());
@@ -27,7 +27,7 @@ class TeyaApiClientTest extends TestCase {
 
     public function testGetTransaction(){
 
-        $client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'log_enabled' => true, 'log_level' => 'debug']);
+        $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'log_enabled' => true, 'log_level' => 'debug']);
         $response = $client->transaction('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
         $this->assertEquals('{"id":1,"status":"success"}', $response->getBody()->getContents());
     }

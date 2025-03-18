@@ -2,7 +2,7 @@
 
 namespace Ttimot24\TeyaPayment;
 
-class TeyaApiClient extends TeyaClientBase
+class TeyaPaymentGatewayClient extends TeyaClientBase
 {
 
     private static $_PAYMENT_ENDPOINT = "/rpg/api/payment";

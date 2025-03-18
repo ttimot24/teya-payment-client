@@ -2,7 +2,7 @@
 
 namespace Ttimot24\TeyaPayment;
 
-class TeyaWebClient extends TeyaClientBase
+class TeyaSecurePayClient extends TeyaClientBase
 {
 
     protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey', 'RedirectSuccess', 'RedirectSuccessServer'];
