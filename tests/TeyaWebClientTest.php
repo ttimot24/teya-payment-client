@@ -12,17 +12,24 @@ class TeyaWebClientTest extends TestCase {
             'MerchantId' => '9256684', 
             'PaymentGatewayId' => 7, 
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
-            'RedirectSuccess' => 'https:/google.com?q=success',
-            'RedirectSuccessServer' => 'https:/google.com?q=successserver'
+            'RedirectSuccess' => '/SecurePay/SuccessPage.aspx?PaymentID=',
+            'RedirectSuccessServer' => 'SUCCESS_SERVER',
         ]);
 
     }
 
     public function testSignatureCalulation(){
 
-        $checkHash = $this->client->getSignature([
+        $signatureClient = new Ttimot24\TeyaPayment\TeyaWebClient([
+            'MerchantId' => '9123456', 
+            'PaymentGatewayId' => 16, 
+            'SecretKey' => '1234567890abcdef',
+            'RedirectSuccess' => 'https://borgun.is/success',
+            'RedirectSuccessServer' => 'https://borgun.is/success_server'
+        ]);
+
+        $checkHash = $signatureClient->getSignature([
             "amount" => 100,
-            "language" => "HU",
             "currency" => "ISK",
             "orderid" => "TEST00000001"
         ]);
@@ -33,15 +40,34 @@ class TeyaWebClientTest extends TestCase {
     public function testStartTransaction(){
 
         $response = $this->client->start([
-            "amount" => 100,
-            "language" => "HU",
+            "amount" => 10000,
             "currency" => "HUF",
-            "orderid" => "TEST00000001"
+            "orderid" => "TEST00000001",
+            "buyername" => "Valaki",
+            "buyeremail" => "test@borgun.is",
+            "returnurlcancel" => "http://borgun.is/ReturnPageCancel.aspx",
+            "returnurlerror" => "http://borgun.is/ReturnUrlError.aspx",
+            "itemdescription_0" => "Test Item",
+            "itemcount_0" => 1,
+            "itemunitamount_0" => 10000,
+            "itemamount_0" => 10000,
+            "pagetype" => 0,
+            "skipreceiptpage" => 0,
+            "merchantemail" => "test@borgun.is"
         ]);
 
-        echo $response;
+        $this->assertEquals(200, $response->getStatusCode());
 
-    //    $this->assertEquals('{"id":1,"status":"success"}', $response);
+      //  $this->assertEquals("asd",json_encode($response->getBody()->getContents()));
+
+        $url = parse_url($response->getHeader('Location')[0]);
+
+        parse_str($url['query'], $query);
+
+        $this->assertEquals("asd",json_encode($query['PaymentID']));
+
+
+      //  $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response->getHeader('Location')[0]);
     }
 
 }

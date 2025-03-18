@@ -4,7 +4,8 @@
     "type": "library",
     "version": "0.1-dev",
     "require": {
-        "guzzlehttp/guzzle": "^7.9"
+        "guzzlehttp/guzzle": "^7.9",
+        "monolog/monolog": "^3.8"
     },
     "require-dev": {
         "phpunit/phpunit": "*"

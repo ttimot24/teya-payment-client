@@ -5,28 +5,23 @@ namespace Ttimot24\TeyaPayment;
 class TeyaApiClient extends TeyaClientBase
 {
 
+    private static $_PAYMENT_ENDPOINT = "/rpg/api/payment";
+
+    protected $rules = ['PrivateKey'];
+
     protected $defaultConfig = [
         'environment' => 'sandbox',
-        ['headers' => [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ODU2MjkzX3ByMGx4blc4UEcxU2VDd1ZKM1dQSDBsWENlVTAvc1lMdFg6'
-            ]
-        ]
+        'headers' => []
     ];
-
-    public function getEnvironmentUri(){
-        return $this->environments[$this->mergedConfig['environment']];
-    }
 
     public function preAuthorization(array $data){
 
         $data['TransactionType'] = "PreAuthorization";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(trim("/rpg/api/payment"), $data);
+        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data], ['auth' => [$this->getConfig('PrivateKey'), null]]);
 
-        return $response->getBody();
+        return $response;
     }
 
     public function payment(array $data){
@@ -34,16 +29,16 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "Sale";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(trim("/rpg/api/payment"), $data);
+        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data], ['auth' => [$this->getConfig('PrivateKey'), null]]);
 
-        return $response->getBody();
+        return $response;
     }
 
     public function transaction($id){
 
-        $response = $this->http->get("/rpg/api/payment/".$id);
+        $response = $this->http->get(self::$_PAYMENT_ENDPOINT."/".$id, ['auth' => [$this->getConfig('PrivateKey'), null]]);
 
-        return $response->getBody();
+        return $response;
     }
 
     public function cancel(){

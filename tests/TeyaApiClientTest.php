@@ -18,15 +18,16 @@ class TeyaApiClientTest extends TestCase {
             ]
         ];
 
-        $client = new Ttimot24\TeyaPayment\TeyaApiClient();
+        $client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX']);
+
         $response = $client->payment($payment);
-        $this->assertEquals('{"id":1,"status":"success"}', $response);
+        $this->assertEquals('{"id":1,"status":"success"}', $response->getBody()->getContents());
     }
 
     public function testGetTransaction(){
 
-        $client = new Ttimot24\TeyaPayment\TeyaApiClient();
-        $response = $client->transaction(1);
+        $client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX']);
+        $response = $client->transaction('TEST00000001');
         $this->assertEquals('{"id":1,"status":"success"}', $response);
     }
 

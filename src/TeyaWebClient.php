@@ -9,10 +9,8 @@ class TeyaWebClient extends TeyaClientBase
 
     protected $defaultConfig = [
         'environment' => 'sandbox',
-        ['headers' => [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            ]
+        'headers' => [
+            'Content-Type' => 'application/x-www-form-urlencoded',
         ]
     ];
 
@@ -23,13 +21,22 @@ class TeyaWebClient extends TeyaClientBase
         return hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
-    public function start($data){
+    private function configure(array $data){
+        $data['merchantid'] = $this->getConfig('MerchantId');
+        $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
+        $data['checkhash'] = $this->getSignature($data);
+        $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess');
+        $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer');
+        $data['language'] = $this->getConfig('Language', 'EN');
 
-       $data['merchantid'] = $this->getConfig('MerchantId');
-       $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
-       $data['checkhash'] = $this->getSignature($data);
+        return $data;
+    }
 
-       return $this->http->post("SecurePay/default.aspx", $data);
+    public function start(array $data){
+
+       $data = $this->configure($data);
+
+       return $this->http->post("/SecurePay/default.aspx", $data);
     }
 
 }
