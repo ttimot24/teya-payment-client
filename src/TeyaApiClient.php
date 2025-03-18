@@ -11,7 +11,10 @@ class TeyaApiClient extends TeyaClientBase
 
     protected $defaultConfig = [
         'environment' => 'sandbox',
-        'headers' => []
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ]
     ];
 
     public function preAuthorization(array $data){
@@ -19,7 +22,7 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "PreAuthorization";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data], ['auth' => [$this->getConfig('PrivateKey'), null]]);
+        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data, 'auth' => [$this->getConfig('PrivateKey'), null]]);
 
         return $response;
     }
@@ -29,7 +32,7 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "Sale";
         $data['TransactionDate'] = date("c");
 
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data], ['auth' => [$this->getConfig('PrivateKey'), null]]);
+        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data, 'auth' => [$this->getConfig('PrivateKey'), null]]);
 
         return $response;
     }

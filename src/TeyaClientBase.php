@@ -31,19 +31,28 @@ abstract class TeyaClientBase
         $this->mergedConfig = array_merge($this->defaultConfig, $config);
         $this->mergedConfig['base_uri'] = $this->getEnvironmentUri();
         $this->mergedConfig['allow_redirects'] = ['strict' => true];
-        $this->mergedConfig['handler'] = HandlerStack::create();
 
-        $logger = new Logger('Teya HTTP Client');
-        $logger->pushHandler(new StreamHandler('log/teya-api.log'), Logger::DEBUG);
-
-        $this->mergedConfig['handler']->push(
-            Middleware::log(
-                $logger,
-                new MessageFormatter('{request} - {response}')
-            )
-        );
+        $this->configureLogging();
  
         $this->http = new \GuzzleHttp\Client($this->mergedConfig);
+    }
+
+    private function configureLogging(){
+
+        if($this->getConfig('log_enabled', false)){
+            $this->mergedConfig['handler'] = HandlerStack::create();
+
+            $logger = new Logger('Teya HTTP Client');
+            $logger->pushHandler(new StreamHandler($this->getConfig('log_file', 'teya.log')), \Monolog\Level::fromName($this->getConfig('log_level','info')));
+
+            $this->mergedConfig['handler']->push(
+                Middleware::log(
+                    $logger,
+                    new MessageFormatter('{request} - {response}')
+                )
+            );
+        }
+
     }
 
     public function hasConfig($key){

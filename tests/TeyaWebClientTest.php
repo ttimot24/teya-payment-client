@@ -14,6 +14,7 @@ class TeyaWebClientTest extends TestCase {
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
             'RedirectSuccess' => '/SecurePay/SuccessPage.aspx?PaymentID=',
             'RedirectSuccessServer' => 'SUCCESS_SERVER',
+            'log_enabled' => true, 'log_level' => 'debug'
         ]);
 
     }
@@ -58,16 +59,7 @@ class TeyaWebClientTest extends TestCase {
 
         $this->assertEquals(200, $response->getStatusCode());
 
-      //  $this->assertEquals("asd",json_encode($response->getBody()->getContents()));
-
-        $url = parse_url($response->getHeader('Location')[0]);
-
-        parse_str($url['query'], $query);
-
-        $this->assertEquals("asd",json_encode($query['PaymentID']));
-
-
-      //  $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response->getHeader('Location')[0]);
+        $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response->getHeader('Location')[0]);
     }
 
 }
