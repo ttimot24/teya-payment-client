@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class TeyaWebClientTest extends TestCase {
+class TeyaSecurePayClientTest extends TestCase {
 
     private $client;
 

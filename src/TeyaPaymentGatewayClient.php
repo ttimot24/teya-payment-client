@@ -2,57 +2,41 @@
 
 namespace Ttimot24\TeyaPayment;
 
-class TeyaPaymentGatewayClient extends TeyaClientBase
+use \GuzzleHttp\RequestOptions;
+
+class TeyaPaymentGatewayClient extends TeyaApiClient
 {
 
-    private static $_PAYMENT_ENDPOINT = "/rpg/api/payment";
+    private function deserialize($response){
+        return json_decode($response->getBody()->__toString(), true);
+    }
 
-    protected $rules = ['PrivateKey'];
+    public function preauth(array $data){
 
-    protected $defaultConfig = [
-        'environment' => 'sandbox',
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ]
-    ];
-
-    public function preAuthorization(array $data){
-
-        $data['TransactionType'] = "PreAuthorization";
-        $data['TransactionDate'] = date("c");
-
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data, 'auth' => [$this->getConfig('PrivateKey'), null]]);
-
-        return $response;
+        return $this->deserialize(parent::preauth($data));
     }
 
     public function payment(array $data){
 
-        $data['TransactionType'] = "Sale";
-        $data['TransactionDate'] = date("c");
-
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, ['json' => $data, 'auth' => [$this->getConfig('PrivateKey'), null]]);
-
-        return $response;
+        return $this->deserialize(parent::payment($data));
     }
 
     public function transaction($id){
 
-        $response = $this->http->get(self::$_PAYMENT_ENDPOINT."/".$id, ['auth' => [$this->getConfig('PrivateKey'), null]]);
-
-        return $response;
+        return $this->deserialize(parent::transaction($id));
     }
 
-    public function cancel(){
-        
+    public function capture($id){
+        return $this->deserialize(parent::capture($id));
     }
 
-    public function refund(){
-        
+    public function cancel($token){
+        return $this->deserialize(parent::cancel($token));
     }
 
-    public function capture(){
-        
+    public function refund($id){
+        return $this->deserialize(parent::refund($id));
     }
+
+
 }
