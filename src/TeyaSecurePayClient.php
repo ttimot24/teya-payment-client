@@ -36,7 +36,7 @@ class TeyaSecurePayClient extends TeyaClientBase
 
        $data = $this->configure($data);
 
-       return $this->http->post("/SecurePay/default.aspx", $data);
+       return $this->getEnvironmentUri()."/SecurePay/default.aspx?".http_build_query($data);
     }
 
 }

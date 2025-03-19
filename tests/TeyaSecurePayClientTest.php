@@ -57,9 +57,7 @@ class TeyaSecurePayClientTest extends TestCase {
             "merchantemail" => "test@borgun.is"
         ]);
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response->getHeader('Location')[0]);
+        $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response);
     }
 
 }

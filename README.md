@@ -34,6 +34,40 @@ $client->payment([
 
 ```
 
+### SecurePay
+```php
+        $client = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
+            'MerchantId' => '9256684', 
+            'PaymentGatewayId' => 7, 
+            'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
+            'RedirectSuccess' => '/SecurePay/SuccessPage.aspx',
+            'RedirectSuccessServer' => 'SUCCESS_SERVER',
+            'log_enabled' => true, 'log_level' => 'debug'
+        ]);
+
+
+
+        $redirect_url = $client->start([
+            "amount" => 10000,
+            "currency" => "HUF",
+            "orderid" => "TEST00000001",
+            "buyername" => "Valaki",
+            "buyeremail" => "test@borgun.is",
+            "returnurlcancel" => "http://borgun.is/ReturnPageCancel.aspx",
+            "returnurlerror" => "http://borgun.is/ReturnUrlError.aspx",
+            "itemdescription_0" => "Test Item",
+            "itemcount_0" => 1,
+            "itemunitamount_0" => 10000,
+            "itemamount_0" => 10000,
+            "pagetype" => 0,
+            "skipreceiptpage" => 0,
+            "merchantemail" => "test@borgun.is"
+        ]);
+
+        header('Location: '.$redirect_url);
+
+```
+
 ### SecurePay Playground
 ```sh
 playground.php
