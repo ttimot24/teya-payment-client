@@ -12,5 +12,19 @@ Teya PHP Client Library is a PHP package designed to interact with the Teya API,
 composer require ttimot24/teya-payment-client
 ```
 
+### RPG Payment Gateway
+```php
+new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
+    'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX',
+    'log_enabled' => true, 
+    'log_level' => 'debug'
+    ]);
+```
+
+### SecurePay Playground
+```sh
+playground.php
+```
+
 ### Contribution
 Contributions are welcome! If you'd like to improve this project, fork the repository, create a new branch, and submit a pull request. Please follow best practices and ensure your code is clean and well-documented.  
