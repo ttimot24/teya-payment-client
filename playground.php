@@ -22,7 +22,7 @@
     $transactionId = "ASD1ASD1";
     ?>
 
-    <form id="form1" action="https://test.borgun.is/securepay/default.aspx" method="POST">
+    <form id="form1" action="https://test.borgun.is/securepay/default.aspx" method="GET">
       Merchantid : <input type="text" name="merchantid" value="<?= $merchantId ?>" /><br>
       paymentgatewayid : <input type="text" name="paymentgatewayid" value="7" /><br>
       checkhash : <input type="text" size=100 name="checkhash" value="<?= hash_hmac('sha256', utf8_encode($merchantId.'|'.$actual_link.'|'.$actual_link.'|'.$transactionId .'|' . $amount . '|'.$currency .''), $secret) ?>" /><br>
