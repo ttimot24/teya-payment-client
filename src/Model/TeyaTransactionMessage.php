@@ -6,8 +6,14 @@ class TeyaTransactionMessage extends TeyaMessageInterface {
 
     protected $transactionId;
     protected $transactionType;
+    protected $transactionDate;
     protected $transactionStatus;
     protected $amount;
+    protected $currency;
+    protected $orderId;
+    protected $authCode;
+    protected $actionCode;
+    protected $paymentMethod;
 
     public function getTransactionId(){
         return $this->transactionId;
@@ -15,6 +21,10 @@ class TeyaTransactionMessage extends TeyaMessageInterface {
 
     public function getTransactionType(){
         return $this->transactionType;
+    }
+
+    public function getTransactionDate(){
+        return $this->transactionDate;
     }
 
     public function getTransactionStatus(){
@@ -25,4 +35,24 @@ class TeyaTransactionMessage extends TeyaMessageInterface {
         return $this->amount;
     }
 
+    public function getCurrency(){
+        return $this->currency;
+    }
+
+    public function getOrderId(){
+        return $this->orderId;
+    }
+
+    public function getAuthCode(){
+        return $this->authCode;
+    }
+
+    public function getActionCode(){
+        return $this->actionCode;
+    }
+
+    public function getPaymentMethod(){
+        return $this->paymentMethod;
+    }
+    
 }
