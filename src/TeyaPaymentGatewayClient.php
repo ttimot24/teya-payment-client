@@ -16,7 +16,7 @@ class TeyaPaymentGatewayClient extends TeyaApiClient
 
     private function deserialize(ResponseInterface $response, $class){
 
-        $array = json_decode($response->getBody()->__toString(), true, 512, JSON_THROW_ON_ERROR);
+        $array = json_decode($response->getBody()->__toString(), true);
 
         return $this->isSuccessfulTransactionCall($response)? new $class($array) : new TeyaErrorMessage($array);
     }

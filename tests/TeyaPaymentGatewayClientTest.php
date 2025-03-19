@@ -35,7 +35,6 @@ class TeyaPaymentGatewayClientTest extends TestCase {
     public function testPayment(){
 
         $message = $this->client->payment($this->payment);
-
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertNotNull($message->getTransactionStatus());
     }
@@ -59,7 +58,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
     public function testCancel(){
 
         $preauth = $this->client->preauth($this->payment);
-        $message = $this->client->capture($preauth->getTransactionId());
+        $message = $this->client->cancel($preauth->getTransactionId());
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertEquals("Cancelled", $message->getTransactionStatus());
     }
@@ -67,7 +66,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
     public function testRefund(){
 
         $preauth = $this->client->preauth($this->payment);
-        $message = $this->client->capture($preauth->getTransactionId());
+        $message = $this->client->refund($preauth->getTransactionId());
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertEquals("Refunded", $message->getTransactionStatus());
     }
