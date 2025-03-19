@@ -14,11 +14,24 @@ composer require ttimot24/teya-payment-client
 
 ### RPG Payment Gateway
 ```php
-new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
+$client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
     'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX',
     'log_enabled' => true, 
     'log_level' => 'debug'
     ]);
+
+$client->payment([
+        'Amount' => 100,
+        'Currency' => 352,
+        'OrderId' => 'ORDER1230001',
+        'PaymentMethod' => [
+            'PaymentType' => 'Card',
+            'PAN' => '4176669999000104',
+            'ExpYear' => 2031,
+            'ExpMonth' => 12
+        ]
+    ]);
+
 ```
 
 ### SecurePay Playground
