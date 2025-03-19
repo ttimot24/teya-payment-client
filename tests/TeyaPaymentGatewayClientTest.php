@@ -26,17 +26,26 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
     public function testPreAuthorization(){
 
-        $this->assertContains('TransactionStatus', $this->client->preauth($this->payment));
+        $message = $this->client->preauth($this->payment);
+
+        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertNotNull($message->getTransactionStatus());
     }
 
     public function testPayment(){
 
-        $this->assertContains('TransactionStatus', $this->client->payment($this->payment));
+        $message = $this->client->payment($this->payment);
+
+        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertNotNull($message->getTransactionStatus());
     }
 
     public function testTransaction(){
 
-        $this->assertContains('TransactionStatus', $this->client->transaction('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g'));
+        $message = $this->client->transaction('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
+
+        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertNotNull($message->getTransactionStatus());
     }
 
     public function testCapture(){
