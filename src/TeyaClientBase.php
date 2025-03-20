@@ -68,6 +68,10 @@ abstract class TeyaClientBase
         return $key? $this->mergedConfig[$key] : $this->mergedConfig;
     }
 
+    public function setConfig($key, $value){
+        $this->mergedConfig[$key] = $value; 
+    }
+
     public function getEnvironments(): array {
         return $this->environments;
     }
