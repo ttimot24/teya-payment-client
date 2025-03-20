@@ -16,8 +16,6 @@ class TeyaSecurePayClient extends TeyaClientBase
         ]
     ];
 
-    private $data;
-
     private $items; 
 
     public function getSignature($data): string {
@@ -79,5 +77,9 @@ class TeyaSecurePayClient extends TeyaClientBase
 
        return $this->getEnvironmentUri()."/SecurePay/default.aspx?".urlencode(http_build_query($data));
     }
+
+    public function open(array $data) {
+        return header('Location: '.$this->start($data));
+     }
 
 }

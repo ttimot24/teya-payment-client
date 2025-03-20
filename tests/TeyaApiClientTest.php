@@ -2,6 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class TeyaApiClientTest extends TestCase {
 
     private $client;
@@ -20,7 +23,10 @@ class TeyaApiClientTest extends TestCase {
 
     public function setUp(): void {
 
-        $this->client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'log_enabled' => true, 'log_level' => 'debug']);
+        $logger = new Logger('TeyaSecurePayClient');
+        $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
+
+        $this->client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'logger' => $logger]);
 
     }
 

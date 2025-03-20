@@ -2,11 +2,19 @@
 
 use PHPUnit\Framework\TestCase;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class TeyaSecurePayClientTest extends TestCase {
 
     private $client;
 
     protected function setUp(): void {
+
+
+        $logger = new Logger('TeyaSecurePayClient');
+        $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
+
 
         $this->client = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
             'MerchantId' => '9256684', 
@@ -15,7 +23,7 @@ class TeyaSecurePayClientTest extends TestCase {
             'RedirectSuccess' => '/SecurePay/SuccessPage.aspx?PaymentID=',
             'RedirectSuccessServer' => 'SUCCESS_SERVER',
             "Currency" => "HUF",
-            'log_enabled' => true, 'log_level' => 'debug'
+            "logger" => $logger
         ]);
 
     }
@@ -42,16 +50,7 @@ class TeyaSecurePayClientTest extends TestCase {
 
     public function testSignatureValidation(){
 
-        $signatureClient = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
-            'MerchantId' => '9256684', 
-            'PaymentGatewayId' => 7, 
-            'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
-            'RedirectSuccess' => 'https://borgun.is/success',
-            'RedirectSuccessServer' => 'https://borgun.is/success_server'
-        ]);
-
-
-        $validation = $signatureClient->validateSignature([
+        $validation = $this->client->validateSignature([
             "orderhash" => "f92204b4355704cb91b29fd059089433c224e47666b11e2ee674446ce0169e46",
             "amount" => 2000,
             "currency" => "HUF",
