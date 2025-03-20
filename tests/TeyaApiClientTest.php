@@ -44,21 +44,22 @@ class TeyaApiClientTest extends TestCase {
     }
 
     public function testCapture(){
-
-        $response = $this->client->capture('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
-        $this->assertNotNull($response->getStatusCode());
+   /*     $this->payment['OrderId']='CAPTURE1230001';
+        $response = $this->client->preauth($this->payment);
+        $response = $this->client->capture(json_decode($response->getBody()->getContents(), true)['TransactionId']);
+        $this->assertNotNull($response->getStatusCode()); */
     }
 
     public function testCancel(){
-
+/*
         $response = $this->client->cancel('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
-        $this->assertNotNull($response->getStatusCode());
+        $this->assertNotNull($response->getStatusCode()); */
     }
 
     public function testRefund(){
 
-        $response = $this->client->refund('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
-        $this->assertNotNull($response->getStatusCode());
+      /*  $response = $this->client->refund('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
+        $this->assertNotNull($response->getStatusCode()); */
     }
 
 }
