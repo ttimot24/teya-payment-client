@@ -2,6 +2,8 @@
 
 namespace Ttimot24\TeyaPayment;
 
+use Ttimot24\TeyaPayment\Model\TeyaItem;
+
 class TeyaSecurePayClient extends TeyaClientBase
 {
 
@@ -13,6 +15,10 @@ class TeyaSecurePayClient extends TeyaClientBase
             'Content-Type' => 'application/x-www-form-urlencoded',
         ]
     ];
+
+    private $data;
+
+    private $items; 
 
     public function getSignature($data): string {
        
@@ -26,6 +32,24 @@ class TeyaSecurePayClient extends TeyaClientBase
         return false;
     }
 
+    public function addItem(TeyaItem $item){
+        $this->items[] = $item;
+    }
+
+    public function addItems($items){
+        foreach($items as $item){
+            $this->addItem($item);
+        }
+    }
+
+    public function getItems(): TeyaItem {
+        return $this->items;
+    }
+
+    public function clearItems(){
+        $this->items = [];
+    }
+
     private function configure(array $data){
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
@@ -33,6 +57,16 @@ class TeyaSecurePayClient extends TeyaClientBase
         $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess');
         $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer');
         $data['language'] = $this->getConfig('Language', 'EN');
+        $data['currency'] = $this->getConfig('Currency', 'ISK');
+
+        foreach($this->items as $key => $item){
+            $data['itemdescription_'.$key] = $item->getDescription();
+            $data['itemcount_'.$key] = $item->getCount();
+            $data['itemunitamount_'.$key] = $item->getPrice();
+            $data['itemamount_'.$key] = $item->getTotal();
+
+            $data['amount'] += $item->getTotal();
+        }
 
         return $data;
     }

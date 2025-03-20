@@ -14,6 +14,7 @@ class TeyaSecurePayClientTest extends TestCase {
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
             'RedirectSuccess' => '/SecurePay/SuccessPage.aspx?PaymentID=',
             'RedirectSuccessServer' => 'SUCCESS_SERVER',
+            "Currency" => "HUF",
             'log_enabled' => true, 'log_level' => 'debug'
         ]);
 
@@ -29,6 +30,7 @@ class TeyaSecurePayClientTest extends TestCase {
             'RedirectSuccessServer' => 'https://borgun.is/success_server'
         ]);
 
+
         $checkHash = $signatureClient->getSignature([
             "amount" => 100,
             "currency" => "ISK",
@@ -40,25 +42,17 @@ class TeyaSecurePayClientTest extends TestCase {
 
     public function testStartTransaction(){
 
-        $redirect_url = $this->client->start([
-            "amount" => 10000,
-            "currency" => "HUF",
-            "orderid" => "TEST00000001",
-            "buyername" => "Valaki",
-            "buyeremail" => "test@borgun.is",
-            "returnurlcancel" => "http://borgun.is/ReturnPageCancel.aspx",
-            "returnurlerror" => "http://borgun.is/ReturnUrlError.aspx",
-            "itemdescription_0" => "Test Item",
-            "itemcount_0" => 1,
-            "itemunitamount_0" => 10000,
-            "itemamount_0" => 10000,
-            "pagetype" => 0,
-            "skipreceiptpage" => 0,
-            "merchantemail" => "test@borgun.is"
+        $this->client->addItems([
+            new \Ttimot24\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
         ]);
 
-        $this->assertMatchesRegularExpression('/'.urlencode('&checkhash=').'/', $redirect_url);
-        $this->assertMatchesRegularExpression('/'.urlencode('&orderid=').'/', $redirect_url);
+        $redirect_url = $this->client->start([
+            "orderid" => "TEST00000001",
+        ]);
+
+        $this->assertMatchesRegularExpression('/'.urlencode('checkhash=').'/', $redirect_url);
+        $this->assertMatchesRegularExpression('/'.urlencode('orderid=TEST00000001').'/', $redirect_url);
+        $this->assertMatchesRegularExpression('/'.urlencode('amount=10000').'/', $redirect_url);
     }
 
 }
