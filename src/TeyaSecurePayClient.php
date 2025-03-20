@@ -27,9 +27,11 @@ class TeyaSecurePayClient extends TeyaClientBase
         return hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
-    public function validateSignature($signature): bool { 
-        //TODO Validate Teya response signature
-        return false;
+    public function validateSignature(array $response): bool { 
+        
+        $hash_content = $response['orderid']."|".$response['amount']."|".$response['currency'];
+
+        return $response['orderhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
     public function addItem(TeyaItem $item){
