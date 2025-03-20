@@ -3,11 +3,11 @@
     "description": "PHP Teya Payment Client Library",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "^7.9",
-        "monolog/monolog": "^3.8"
+        "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "monolog/monolog": "^3.8"
     },
     "license": "MIT",
     "autoload": {

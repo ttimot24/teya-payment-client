@@ -5,8 +5,6 @@ namespace Ttimot24\TeyaPayment;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Ttimot24\TeyaPayment\TeyaClientException;
 
 abstract class TeyaClientBase
@@ -39,20 +37,16 @@ abstract class TeyaClientBase
 
     private function configureLogging(){
 
-        if($this->getConfig('log_enabled', false)){
+        if($this->getConfig('logger', null)){
             $this->mergedConfig['handler'] = HandlerStack::create();
-
-            $logger = new Logger('Teya HTTP Client');
-            $logger->pushHandler(new StreamHandler($this->getConfig('log_file', 'teya.log')), \Monolog\Level::fromName($this->getConfig('log_level','info')));
 
             $this->mergedConfig['handler']->push(
                 Middleware::log(
-                    $logger,
+                    $this->getConfig('logger', null),
                     new MessageFormatter('{request} - {response}')
                 )
             );
         }
-
     }
 
     public function hasConfig($key){

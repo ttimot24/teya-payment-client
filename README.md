@@ -15,9 +15,7 @@ composer require ttimot24/teya-payment-client
 ### RPG Payment Gateway
 ```php
 $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
-    'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX',
-    'log_enabled' => true, 
-    'log_level' => 'debug'
+    'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX'
     ]);
 
 $client->payment([
@@ -42,9 +40,7 @@ $client->payment([
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
             'RedirectSuccess' => '/SecurePay/SuccessPage.aspx',
             'RedirectSuccessServer' => 'SUCCESS_SERVER',
-            "Currency" => "HUF",
-            'log_enabled' => true, 
-            'log_level' => 'debug'
+            "Currency" => "HUF"
         ]);
 
         $this->client->addItems([
@@ -57,6 +53,17 @@ $client->payment([
 
         header('Location: '.$redirect_url);
 
+```
+
+### Logging
+```php
+ $logger = new Logger('TeyaSecurePayClient');
+ $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
+
+ $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
+            'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX'
+            'logger' => $logger
+        ]);
 ```
 
 ### SecurePay Playground
