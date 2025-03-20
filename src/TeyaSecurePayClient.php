@@ -21,6 +21,11 @@ class TeyaSecurePayClient extends TeyaClientBase
         return hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
+    public function validateSignature($signature): bool { 
+        //TODO Validate Teya response signature
+        return false;
+    }
+
     private function configure(array $data){
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
@@ -32,11 +37,11 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $data;
     }
 
-    public function start(array $data){
+    public function start(array $data): string {
 
        $data = $this->configure($data);
 
-       return $this->getEnvironmentUri()."/SecurePay/default.aspx?".http_build_query($data);
+       return $this->getEnvironmentUri()."/SecurePay/default.aspx?".urlencode(http_build_query($data));
     }
 
 }

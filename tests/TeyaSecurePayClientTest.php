@@ -40,7 +40,7 @@ class TeyaSecurePayClientTest extends TestCase {
 
     public function testStartTransaction(){
 
-        $response = $this->client->start([
+        $redirect_url = $this->client->start([
             "amount" => 10000,
             "currency" => "HUF",
             "orderid" => "TEST00000001",
@@ -57,7 +57,8 @@ class TeyaSecurePayClientTest extends TestCase {
             "merchantemail" => "test@borgun.is"
         ]);
 
-        $this->assertEquals($this->client->getConfig('RedirectSuccess'), $response);
+        $this->assertMatchesRegularExpression('/'.urlencode('&checkhash=').'/', $redirect_url);
+        $this->assertMatchesRegularExpression('/'.urlencode('&orderid=').'/', $redirect_url);
     }
 
 }
