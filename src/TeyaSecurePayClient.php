@@ -31,7 +31,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         
         $hash_content = $response['orderid']."|".$response['amount']."|".$response['currency'];
 
-        return $response['checkhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
+        return $response['orderhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
     public function addItem(TeyaItem $item){

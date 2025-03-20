@@ -43,18 +43,19 @@ class TeyaSecurePayClientTest extends TestCase {
     public function testSignatureValidation(){
 
         $signatureClient = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
-            'MerchantId' => '9123456', 
-            'PaymentGatewayId' => 16, 
-            'SecretKey' => '1234567890abcdef',
+            'MerchantId' => '9256684', 
+            'PaymentGatewayId' => 7, 
+            'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
             'RedirectSuccess' => 'https://borgun.is/success',
             'RedirectSuccessServer' => 'https://borgun.is/success_server'
         ]);
 
 
         $validation = $signatureClient->validateSignature([
-            "amount" => 100,
-            "currency" => "ISK",
-            "orderid" => "TEST00000001"
+            "orderhash" => "f92204b4355704cb91b29fd059089433c224e47666b11e2ee674446ce0169e46",
+            "amount" => 2000,
+            "currency" => "HUF",
+            "orderid" => "ASD1ASD1"
         ]);
 
         $this->assertTrue($validation);
