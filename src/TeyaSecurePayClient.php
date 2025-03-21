@@ -62,7 +62,6 @@ class TeyaSecurePayClient extends TeyaClientBase
     {
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
-        $data['checkhash'] = $this->getSignature($data);
         $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess');
         $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer');
         $data['language'] = $this->getConfig('Language', 'EN');
@@ -78,6 +77,7 @@ class TeyaSecurePayClient extends TeyaClientBase
             $data['amount'] += $item->getTotal();
         }
 
+        $data['checkhash'] = $this->getSignature($data);
         return $data;
     }
 
@@ -98,7 +98,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         $response = $this->deserialize($response);
 
         if ($response['ret']) {
-            $$response['redirect_url'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
+            $response['redirect_url'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
         }
 
         return $response;

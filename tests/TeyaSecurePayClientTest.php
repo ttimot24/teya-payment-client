@@ -20,8 +20,8 @@ class TeyaSecurePayClientTest extends TestCase {
             'MerchantId' => '9256684', 
             'PaymentGatewayId' => 7, 
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
-            'RedirectSuccess' => '/SecurePay/SuccessPage.aspx?PaymentID=',
-            'RedirectSuccessServer' => 'SUCCESS_SERVER',
+            'RedirectSuccess' => 'https://test/SecurePay/SuccessPage.aspx',
+            'RedirectSuccessServer' => 'https://test/SecurePay/SuccessServerPage.aspx',
             "Currency" => "HUF",
             "logger" => $logger
         ]);
