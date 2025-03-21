@@ -66,13 +66,17 @@ class TeyaSecurePayClientTest extends TestCase {
             new \Ttimot24\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
         ]);
 
-        $redirect_url = $this->client->start([
+        $response = $this->client->start([
             "orderid" => "TEST00000001",
         ]);
 
-        $this->assertMatchesRegularExpression('/'.urlencode('checkhash=').'/', $redirect_url);
-        $this->assertMatchesRegularExpression('/'.urlencode('orderid=TEST00000001').'/', $redirect_url);
-        $this->assertMatchesRegularExpression('/'.urlencode('amount=10000').'/', $redirect_url);
+        $this->assertArrayHasKey('ret', $response);
+        $this->assertArrayHasKey('message', $response);
+        $this->assertTrue($response['ret'], $response['message']);
+        $this->assertEquals('', $response['message']);
+        $this->assertArrayHasKey('ticket', $response);
+        $this->assertArrayHasKey('redirect_url', $response);
+
     }
 
 }

@@ -16,19 +16,21 @@
     $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
     $merchantId = "9256684";
+    $gateway="7";
     $secret = "cdedfbb6ecab4a4994ac880144dd92dc";
     $amount = 2000;
     $currency = "HUF";
-    $transactionId = "ASD1ASD1";
+    $transactionId = "BHTEST001";
     ?>
 
-    <form id="form1" action="https://test.borgun.is/securepay/default.aspx" method="GET">
+    <form id="form1" action="https://test.borgun.is/securepay/default.aspx" method="POST">
       Merchantid : <input type="text" name="merchantid" value="<?= $merchantId ?>" /><br>
-      paymentgatewayid : <input type="text" name="paymentgatewayid" value="7" /><br>
+      paymentgatewayid : <input type="text" name="paymentgatewayid" value="<?= $gateway ?>" /><br>
       checkhash : <input type="text" size=100 name="checkhash" value="<?= hash_hmac('sha256', utf8_encode($merchantId.'|'.$actual_link.'|'.$actual_link.'|'.$transactionId .'|' . $amount . '|'.$currency .''), $secret) ?>" /><br>
       orderid : <input type="text" name="orderid" value="<?= $transactionId ?>" /><br>
       currency : <input type="text" name="currency" value="<?= $currency ?>" /><br>
       language : <input type="text" name="language" value="HU" /><br>
+      ticketexpirydata : <input type="text" name="ticketexpirydata" value="<?= date('d.m.y') ?>" /><br>
       buyername : <input type="text" name="buyername" value="Agnar Agnarsson" /><br>
       buyeremail : <input type="text" name="buyeremail" value="test@borgun.is" /><br>
       returnurlsuccess : <input type="text" size=100 name="returnurlsuccess" value="<?= $actual_link ?>" /><br>
