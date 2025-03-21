@@ -75,7 +75,7 @@ class TeyaSecurePayClientTest extends TestCase {
         $this->assertTrue($response['ret'], $response['message']);
         $this->assertEquals('', $response['message']);
         $this->assertArrayHasKey('ticket', $response);
-        $this->assertArrayHasKey('redirect_url', $response);
+        $this->assertArrayHasKey('paymentUrl', $response);
 
     }
 

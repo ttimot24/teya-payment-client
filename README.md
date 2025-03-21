@@ -52,7 +52,7 @@ $client->payment([
             "orderid" => "TEST00000001",
         ]);
 
-        header('Location: '.$response['redirect_url']);
+        header('Location: '.$response['paymentUrl']);
       
         //or a shortcut:
         $this->client->open([

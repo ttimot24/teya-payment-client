@@ -98,7 +98,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         $response = $this->deserialize($response);
 
         if ($response['ret']) {
-            $response['redirect_url'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
+            $response['paymentUrl'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
         }
 
         return $response;
@@ -110,7 +110,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         $response = $this->start($data);
 
         if ($response['ret']) {
-            return header('Location: ' . $response['redirect_url']);
+            return header('Location: ' . $response['paymentUrl']);
         }
 
         throw new TeyaClientException($response['message']);
