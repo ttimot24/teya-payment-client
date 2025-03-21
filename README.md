@@ -47,11 +47,17 @@ $client->payment([
             new \Ttimot24\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
         ]);
 
-        $redirect_url = $this->client->start([
+        //prepare transaction and redirect user
+        $response = $this->client->start([
             "orderid" => "TEST00000001",
         ]);
 
-        header('Location: '.$redirect_url);
+        header('Location: '.$response['redirect_url']);
+      
+        //or a shortcut:
+        $this->client->open([
+            "orderid" => "TEST00000001",
+        ]);
 
 ```
 
