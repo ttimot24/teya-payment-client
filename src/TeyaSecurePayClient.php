@@ -60,6 +60,7 @@ class TeyaSecurePayClient extends TeyaClientBase
 
     private function configure(array $data)
     {
+        $data['amount'] = 0; // PHP <= 8.2 compability
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
         $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess');
