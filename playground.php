@@ -20,7 +20,8 @@
     $secret = "cdedfbb6ecab4a4994ac880144dd92dc";
     $amount = 2000;
     $currency = "HUF";
-    $transactionId = "BHTEST001";
+    $transactionId = random_int(100000000000, 990000000000);
+    $reference = "BHTEST001";
     ?>
 
     <form id="form1" action="https://test.borgun.is/securepay/default.aspx" method="POST">
@@ -28,6 +29,7 @@
       paymentgatewayid : <input type="text" name="paymentgatewayid" value="<?= $gateway ?>" /><br>
       checkhash : <input type="text" size=100 name="checkhash" value="<?= hash_hmac('sha256', utf8_encode($merchantId.'|'.$actual_link.'|'.$actual_link.'|'.$transactionId .'|' . $amount . '|'.$currency .''), $secret) ?>" /><br>
       orderid : <input type="text" name="orderid" value="<?= $transactionId ?>" /><br>
+      referenceId : <input type="text" name="reference" value="<?= $transactionId ?>" /><br>
       currency : <input type="text" name="currency" value="<?= $currency ?>" /><br>
       language : <input type="text" name="language" value="HU" /><br>
       ticketexpirydata : <input type="text" name="ticketexpirydata" value="<?= date('d.m.y') ?>" /><br>
