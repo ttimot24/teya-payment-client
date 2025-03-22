@@ -12,7 +12,6 @@ class TeyaPaymentGatewayClientTest extends TestCase {
     private $payment = [
         'Amount' => 100,
         'Currency' => 352,
-        'OrderId' => 'ORDER1230001',
         'PaymentMethod' => [
             'PaymentType' => 'Card',
             'PAN' => '4176669999000104',

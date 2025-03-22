@@ -19,10 +19,16 @@ class TeyaApiClient extends TeyaClientBase
         ]
     ];
 
+    private function initialize(array $data): array {
+        $data['OrderId']? : $data['OrderId'] = $this->generateOrderId();
+        $data['TransactionDate']? : $data['TransactionDate'] = date("c");
+        return $data;
+    }
+
     public function preauth(array $data){
 
         $data['TransactionType'] = "PreAuthorization";
-        $data['TransactionDate'] = date("c");
+        $data = $this->initialize($data);
 
         $response = $this->http->post(self::$_PAYMENT_ENDPOINT, [RequestOptions::JSON => $data, RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
 
@@ -32,7 +38,7 @@ class TeyaApiClient extends TeyaClientBase
     public function payment(array $data){
 
         $data['TransactionType'] = "Sale";
-        $data['TransactionDate'] = date("c");
+        $data = $this->initialize($data);
 
         $response = $this->http->post(self::$_PAYMENT_ENDPOINT, [RequestOptions::JSON => $data, RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
 
