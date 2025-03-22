@@ -67,7 +67,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer');
         $data['language'] = $this->getConfig('Language', 'EN');
         $data['currency'] = $this->getConfig('Currency', 'ISK');
-        $data['ticketexpirydate'] = date('d.m.y');
+        $data['ticketexpirydate'] = $this->getConfig('TicketExpiryDate', date("d.m.Y H:i:s", strtotime("+10 minutes")));
 
         foreach ($this->items as $key => $item) {
             $data['itemdescription_' . $key] = $item->getDescription();
