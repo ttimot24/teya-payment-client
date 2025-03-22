@@ -36,11 +36,6 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $response['orderhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
-    public function generateOrderId(): int
-    {
-        return time()+random_int(100000000000, 990000000000);
-    }
-
     public function addItem(TeyaItem $item)
     {
         $this->items[] = $item;

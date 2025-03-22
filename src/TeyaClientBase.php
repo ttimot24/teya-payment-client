@@ -86,4 +86,9 @@ abstract class TeyaClientBase
         }
     }
 
+    public function generateOrderId(): int
+    {
+        return time()+random_int(100000000000, 990000000000);
+    }
+
 }
