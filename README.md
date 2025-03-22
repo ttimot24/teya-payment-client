@@ -49,14 +49,14 @@ $client->payment([
 
         //prepare transaction and redirect user
         $response = $this->client->start([
-            "orderid" => "TEST00000001",
+            "reference" => "TEST00000001",
         ]);
 
         header('Location: '.$response['paymentUrl']);
       
         //or a shortcut:
         $this->client->open([
-            "orderid" => "TEST00000001",
+            "reference" => "TEST00000001",
         ]);
 
 ```

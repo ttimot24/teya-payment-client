@@ -36,6 +36,11 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $response['orderhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
+    public function generateOrderId(): int
+    {
+        return random_int(100000000000, 999999999999);
+    }
+
     public function addItem(TeyaItem $item)
     {
         $this->items[] = $item;
@@ -60,6 +65,7 @@ class TeyaSecurePayClient extends TeyaClientBase
 
     private function configure(array $data)
     {
+        $data['orderid'] = $this->generateOrderId();
         $data['amount'] = 0; // PHP <= 8.2 compability
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
