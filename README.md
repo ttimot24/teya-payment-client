@@ -13,6 +13,9 @@ composer require ttimot24/teya-payment-client
 ```
 
 ### RPG Payment Gateway
+
+[Official documentation](https://docs.borgun.is/paymentgateways/bapi/)
+
 ```php
 $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
     'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX'
@@ -33,6 +36,9 @@ $client->payment([
 ```
 
 ### SecurePay
+
+[Official documentation](https://docs.borgun.is/hostedpayments/securepay/#introduction)
+
 ```php
         $client = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
             'MerchantId' => '9256684', 
