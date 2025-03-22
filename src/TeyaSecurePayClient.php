@@ -94,6 +94,8 @@ class TeyaSecurePayClient extends TeyaClientBase
 
         $data = $this->configure($data);
 
+        $this->getConfig('logger')?->debug('Ticket request: ', $data);
+
         $response = $this->http->post("/SecurePay/ticket.aspx", [RequestOptions::FORM_PARAMS => $data]);
 
         $response = $this->deserialize($response);
@@ -101,6 +103,8 @@ class TeyaSecurePayClient extends TeyaClientBase
         if ($response['ret']) {
             $response['paymentUrl'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
         }
+
+        $this->getConfig('logger')?->debug('Ticket response: ', $response);
 
         return $response;
     }
