@@ -38,7 +38,7 @@ class TeyaSecurePayClient extends TeyaClientBase
 
     public function generateOrderId(): int
     {
-        return random_int(100000000000, 999999999999);
+        return time()+random_int(100000000000, 990000000000);
     }
 
     public function addItem(TeyaItem $item)
@@ -105,6 +105,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         $response = $this->http->post("/SecurePay/ticket.aspx", [RequestOptions::FORM_PARAMS => $data]);
 
         $response = $this->deserialize($response);
+        $response['orderid'] = $data['orderid'];
 
         if ($response['ret']) {
             $response['paymentUrl'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
