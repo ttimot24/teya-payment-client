@@ -59,7 +59,7 @@ class TeyaApiClient extends TeyaClientBase
     }
 
     public function cancel($token){
-        $response = $this->http->delete('/api/token/single/'.$token, [RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+        $response = $this->http->delete('/rpg/api/token/single/'.$token, [RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
 
         return $response;
     }
