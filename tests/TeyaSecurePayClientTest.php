@@ -67,7 +67,7 @@ class TeyaSecurePayClientTest extends TestCase {
         ]);
 
         $response = $this->client->start([
-            "orderid" => "TEST00000001",
+            "reference" => "TEST00000001",
         ]);
 
         $this->assertArrayHasKey('ret', $response);

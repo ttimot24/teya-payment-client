@@ -9,7 +9,9 @@ use \Psr\Http\Message\ResponseInterface;
 class TeyaSecurePayClient extends TeyaClientBase
 {
 
-    protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey', 'RedirectSuccess', 'RedirectSuccessServer'];
+    private static $_SERVER_PATH_PREFIX = "/SecurePay";
+
+    protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey'];
 
     protected $defaultConfig = [
         'environment' => 'sandbox',
@@ -64,8 +66,8 @@ class TeyaSecurePayClient extends TeyaClientBase
         $data['amount'] = 0; // PHP <= 8.2 compability
         $data['merchantid'] = $this->getConfig('MerchantId');
         $data['paymentgatewayid'] = $this->getConfig('PaymentGatewayId');
-        $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess');
-        $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer');
+        $data['returnurlsuccess'] = $this->getConfig('RedirectSuccess', $this->getEnvironmentUri().self::$_SERVER_PATH_PREFIX ."/default.aspx");
+        $data['returnurlsuccessserver'] = $this->getConfig('RedirectSuccessServer', $this->getEnvironmentUri().self::$_SERVER_PATH_PREFIX."/default.aspx");
         $data['language'] = $this->getConfig('Language', 'EN');
         $data['currency'] = $this->getConfig('Currency', 'ISK');
         $data['ticketexpirydate'] = $this->getConfig('TicketExpiryDate', date("d.m.Y H:i:s", strtotime("+10 minutes")));
@@ -97,13 +99,13 @@ class TeyaSecurePayClient extends TeyaClientBase
 
         $this->getConfig('logger')?->debug('Ticket request: ', $data);
 
-        $response = $this->http->post("/SecurePay/ticket.aspx", [RequestOptions::FORM_PARAMS => $data]);
+        $response = $this->http->post(self::$_SERVER_PATH_PREFIX."/ticket.aspx", [RequestOptions::FORM_PARAMS => $data]);
 
         $response = $this->deserialize($response);
         $response['orderid'] = $data['orderid'];
 
         if ($response['ret']) {
-            $response['paymentUrl'] = $this->getEnvironmentUri() . "/SecurePay/ticket.aspx?ticket=" .$response['ticket'];
+            $response['paymentUrl'] = $this->getEnvironmentUri().self::$_SERVER_PATH_PREFIX."/ticket.aspx?ticket=" .$response['ticket'];
         }
 
         $this->getConfig('logger')?->debug('Ticket response: ', $response);
