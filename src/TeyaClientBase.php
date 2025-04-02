@@ -13,7 +13,7 @@ abstract class TeyaClientBase
 
     protected $environments = [
         'sandbox' => 'https://test.borgun.is', 
-        'production' => 'https://borgun.is'
+        'production' => 'https://securepay.borgun.is'
     ];
 
     protected $rules = [];
