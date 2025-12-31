@@ -4,9 +4,9 @@ namespace Ttimot24\TeyaPayment\Model;
 
 class TeyaItem {
 
-    private $description;
-    private $count;
-    private $price;
+    private string $description;
+    private int $count;
+    private float $price;
 
     public function __construct(string $description, int $count, float $price)
     {
@@ -15,23 +15,23 @@ class TeyaItem {
         $this->price = $price;
     }
 
-    public function getDescription(){
+    public function getDescription(): string{
         return $this->description;
     }
 
-    public function getCount(){
+    public function getCount(): int {
         return $this->count;
     }
 
-    public function getPrice(){
+    public function getPrice(): float {
         return $this->price;
     }
 
-    public function getTotal(){
+    public function getTotal(): float {
         return $this->price * $this->count;
     }
 
-    public function toArray(){
+    public function toArray(): array {
         return [
             'description' => $this->description,
             'count' => $this->count,

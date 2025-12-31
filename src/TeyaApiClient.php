@@ -7,11 +7,11 @@ use \GuzzleHttp\RequestOptions;
 class TeyaApiClient extends TeyaClientBase
 {
 
-    private static $_PAYMENT_ENDPOINT = "/rpg/api/payment";
+    private static string $_PAYMENT_ENDPOINT = "/rpg/api/payment";
 
-    protected $rules = ['PrivateKey'];
+    protected array $rules = ['PrivateKey'];
 
-    protected $defaultConfig = [
+    protected array $defaultConfig = [
         'environment' => 'sandbox',
         'headers' => [
             'Content-Type' => 'application/json',

@@ -8,8 +8,8 @@ class TeyaTransactionMessage extends TeyaMessageInterface {
     protected $transactionType;
     protected $transactionDate;
     protected $transactionStatus;
-    protected $amount;
-    protected $currency;
+    protected float $amount;
+    protected string $currency;
     protected $orderId;
     protected $authCode;
     protected $actionCode;
@@ -31,11 +31,11 @@ class TeyaTransactionMessage extends TeyaMessageInterface {
         return $this->transactionStatus;
     }
 
-    public function getAmount(){
+    public function getAmount(): float {
         return $this->amount;
     }
 
-    public function getCurrency(){
+    public function getCurrency(): string {
         return $this->currency;
     }
 
