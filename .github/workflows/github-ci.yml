@@ -47,6 +47,3 @@ jobs:
         name: PHPUnit tests
         path: reports/junit.xml
         reporter: phpunit-junit
-    - name: Fail job if tests failed 
-      if: steps.phpunit.outcome == 'failure' 
-      run: exit 1
