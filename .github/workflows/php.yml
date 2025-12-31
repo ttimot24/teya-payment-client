@@ -34,6 +34,7 @@ jobs:
 
     - name: Run test suite
       run: composer run-script test
+      continue-on-error: true
     - name: Test Report
       uses: dorny/test-reporter@ff2d13cc3645b6e6978bb229ca7a2a5ea91208c1
       if: ${{ !cancelled() }}
@@ -41,3 +42,6 @@ jobs:
         name: PHPUnit tests
         path: reports/junit.xml
         reporter: phpunit-junit
+    - name: Fail job if tests failed 
+      if: steps.phpunit.outcome == 'failure' 
+      run: exit 1

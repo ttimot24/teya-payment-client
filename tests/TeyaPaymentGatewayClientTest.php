@@ -54,29 +54,29 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
     public function testCapture(){
 
-   /*     $this->payment['OrderId']='CAPTR1230001';
+        $this->payment['OrderId']='CAPTR1230001';
 
         $preauth = $this->client->preauth($this->payment);
         $message = $this->client->capture($preauth->getTransactionId());
         var_dump($message);
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
-        $this->assertEquals("Captured", $message->getTransactionStatus()); */
+        $this->assertEquals("Captured", $message->getTransactionStatus());
     }
 
     public function testCancel(){
 
-    /*    $preauth = $this->client->preauth($this->payment);
+        $preauth = $this->client->preauth($this->payment);
         $message = $this->client->cancel($preauth->getTransactionId());
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
-        $this->assertEquals("Cancelled", $message->getTransactionStatus()); */
+        $this->assertEquals("Cancelled", $message->getTransactionStatus());
     }
 
     public function testRefund(){
 
-    /*    $preauth = $this->client->preauth($this->payment);
+        $preauth = $this->client->preauth($this->payment);
         $message = $this->client->refund($preauth->getTransactionId());
         $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
-        $this->assertEquals("Refunded", $message->getTransactionStatus()); */
+        $this->assertEquals("Refunded", $message->getTransactionStatus());
     }
 
 }
