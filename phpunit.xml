@@ -5,8 +5,12 @@
     </include>
     <report>
       <clover outputFile="reports/coverage.xml"/>
+      <html outputDirectory="reports/coverage-html"/>
     </report>
   </coverage>
+  <logging>
+    <junit outputFile="reports/junit.xml"/>
+  </logging>
   <testsuites>
     <testsuite name="Full">
       <directory suffix="Test.php">tests</directory>
