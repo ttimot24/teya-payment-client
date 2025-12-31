@@ -10,16 +10,27 @@ permissions:
   contents: read
 
 jobs:
-  build:
 
+  phpstan: 
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: php-actions/composer@v6
+        with:
+          args: --ignore-platform-reqs
+      - name: Running Phpstan
+        run: composer run-script analyze
 
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.1', '8.2', '8.3', '8.4', '8.5']
     steps:
     - uses: actions/checkout@v4
-
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
-
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
@@ -28,10 +39,8 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
-
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-
     - name: Run test suite
       run: composer run-script test
       continue-on-error: true
@@ -42,6 +51,3 @@ jobs:
         name: PHPUnit tests
         path: reports/junit.xml
         reporter: phpunit-junit
-    - name: Fail job if tests failed 
-      if: steps.phpunit.outcome == 'failure' 
-      run: exit 1

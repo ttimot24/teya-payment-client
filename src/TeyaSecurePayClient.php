@@ -9,11 +9,11 @@ use \Psr\Http\Message\ResponseInterface;
 class TeyaSecurePayClient extends TeyaClientBase
 {
 
-    private static $_SERVER_PATH_PREFIX = "/SecurePay";
+    private static string $_SERVER_PATH_PREFIX = "/SecurePay";
 
-    protected $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey'];
+    protected array $rules = ['MerchantId', 'PaymentGatewayId', 'SecretKey'];
 
-    protected $defaultConfig = [
+    protected array $defaultConfig = [
         'environment' => 'sandbox',
         'headers' => [
             'Content-Type' => 'application/x-www-form-urlencoded',
@@ -38,12 +38,12 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $response['orderhash'] === hash_hmac('sha256', $hash_content, $this->getConfig('SecretKey'));
     }
 
-    public function addItem(TeyaItem $item)
+    public function addItem(TeyaItem $item): void
     {
         $this->items[] = $item;
     }
 
-    public function addItems($items)
+    public function addItems($items): void
     {
         foreach ($items as $item) {
             $this->addItem($item);
@@ -55,12 +55,12 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $this->items;
     }
 
-    public function clearItems()
+    public function clearItems(): void
     {
         $this->items = [];
     }
 
-    private function configure(array $data)
+    private function configure(array $data): array
     {
         $data['orderid'] = $this->generateOrderId();
         $data['amount'] = 0; // PHP <= 8.2 compability
@@ -85,7 +85,7 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $data;
     }
 
-    private function deserialize(ResponseInterface $response)
+    private function deserialize(ResponseInterface $response): array
     {
         parse_str($response->getBody()->__toString(), $response);
         $response['ret'] = $response['ret'] === 'True' ? true : false;
@@ -113,13 +113,13 @@ class TeyaSecurePayClient extends TeyaClientBase
         return $response;
     }
 
-    public function open(array $data)
+    public function open(array $data): void
     {
 
         $response = $this->start($data);
 
         if ($response['ret']) {
-            return header('Location: ' . $response['paymentUrl']);
+            header('Location: ' . $response['paymentUrl']);
         }
 
         throw new TeyaClientException($response['message']);

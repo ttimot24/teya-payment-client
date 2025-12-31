@@ -9,17 +9,17 @@ use Ttimot24\TeyaPayment\TeyaClientException;
 
 abstract class TeyaClientBase
 {
-    protected $http;
+    protected \Psr\Http\Client\ClientInterface $http;
 
-    protected $environments = [
+    protected array $environments = [
         'sandbox' => 'https://test.borgun.is', 
         'production' => 'https://securepay.borgun.is'
     ];
 
-    protected $rules = [];
+    protected array $rules = [];
 
-    protected $defaultConfig = ['debug' => true, 'http_errors' => false];
-    protected $mergedConfig = [];
+    protected array $defaultConfig = ['debug' => true, 'http_errors' => false];
+    protected array $mergedConfig = [];
 
     public function __construct($config = [])   
     {
@@ -35,7 +35,7 @@ abstract class TeyaClientBase
         $this->http = new \GuzzleHttp\Client($this->mergedConfig);
     }
 
-    private function configureLogging(){
+    private function configureLogging(): void {
 
         if($this->getConfig('logger', null)){
             $this->mergedConfig['handler'] = HandlerStack::create();
@@ -49,11 +49,11 @@ abstract class TeyaClientBase
         }
     }
 
-    public function hasConfig($key){
+    public function hasConfig($key): bool {
         return array_key_exists($key, $this->mergedConfig);
     }
 
-    public function getConfig($key = null, $default = null){
+    public function getConfig($key = null, $default = null) {
 
         if($key && !$this->hasConfig($key)){
             return $default;
@@ -62,7 +62,7 @@ abstract class TeyaClientBase
         return $key? $this->mergedConfig[$key] : $this->mergedConfig;
     }
 
-    public function setConfig($key, $value){
+    public function setConfig($key, $value): void{
         $this->mergedConfig[$key] = $value; 
     }
 
@@ -74,11 +74,11 @@ abstract class TeyaClientBase
         $this->environments[$namespace] = $url;
     }
 
-    public function getEnvironmentUri(){
+    public function getEnvironmentUri(): string {
         return $this->environments[$this->getConfig('environment')];
     }
 
-    public function validateConfig($config){
+    public function validateConfig($config): void {
         foreach($this->rules as $key){
             if(!array_key_exists($key, $config)){
                 throw new TeyaClientException("Invalid configuration. Missing key: ".$key);

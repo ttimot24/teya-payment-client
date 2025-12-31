@@ -14,7 +14,7 @@ class TeyaPaymentGatewayClient extends TeyaApiClient
         return $response->getStatusCode() >= 200 && $response->getStatusCode() < 300;
     }
 
-    private function deserialize(ResponseInterface $response, $class){
+    private function deserialize(ResponseInterface $response, $class): TeyaMessageInterface {
 
         $array = json_decode($response->getBody()->__toString(), true);
 
@@ -26,25 +26,25 @@ class TeyaPaymentGatewayClient extends TeyaApiClient
         return $this->deserialize(parent::preauth($data), TeyaTransactionMessage::class);
     }
 
-    public function payment(array $data){
+    public function payment(array $data): TeyaMessageInterface {
 
         return $this->deserialize(parent::payment($data), TeyaTransactionMessage::class);
     }
 
-    public function transaction($id){
+    public function transaction($id): TeyaMessageInterface {
 
         return $this->deserialize(parent::transaction($id), TeyaTransactionMessage::class);
     }
 
-    public function capture($id){
+    public function capture($id): TeyaMessageInterface {
         return $this->deserialize(parent::capture($id), TeyaTransactionMessage::class);
     }
 
-    public function cancel($token){
+    public function cancel($token): TeyaMessageInterface {
         return $this->deserialize(parent::cancel($token), TeyaTransactionMessage::class);
     }
 
-    public function refund($id){
+    public function refund($id): TeyaMessageInterface {
         return $this->deserialize(parent::refund($id), TeyaTransactionMessage::class);
     }
 

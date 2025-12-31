@@ -7,7 +7,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "monolog/monolog": "^3.8"
+        "monolog/monolog": "^3.8",
+        "phpstan/phpstan": "^2.1"
     },
     "license": "MIT",
     "autoload": {
@@ -22,6 +23,7 @@
         }
     ],
     "scripts": {
+        "analyze": "./vendor/bin/phpstan analyse src tests --level 0",
         "test": "XDEBUG_MODE=coverage ./vendor/bin/phpunit"
     }
 }
