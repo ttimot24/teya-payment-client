@@ -77,7 +77,7 @@ class TeyaSecurePayClientTest extends TestCase {
         $this->assertArrayHasKey('ticket', $response);
         $this->assertArrayHasKey('paymentUrl', $response);
         $this->assertArrayHasKey('orderid', $response);
-        $this->assertEquals(12, strlen((string)$response['orderid']));
+        $this->assertEquals(12, strlen($response['orderid']));
 
     }
 
