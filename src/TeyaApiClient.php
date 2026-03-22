@@ -32,7 +32,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'POST',
-            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT,
+            $this->getEnvironmentUri() . self::$_PAYMENT_ENDPOINT,
             [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
@@ -50,7 +50,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'POST',
-            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT,
+            $this->getEnvironmentUri() . self::$_PAYMENT_ENDPOINT,
             [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
@@ -65,7 +65,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'GET',
-            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id,
+            $this->getEnvironmentUri() . self::$_PAYMENT_ENDPOINT."/".$id,
             [
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
             ]
@@ -78,7 +78,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'PUT',
-            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id."/capture",
+            $this->getEnvironmentUri() . self::$_PAYMENT_ENDPOINT."/".$id."/capture",
             [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
@@ -92,7 +92,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'DELETE',
-            $this->getConfig('base_uri') . '/rpg/api/token/single/'.$token,
+            $this->getEnvironmentUri() . '/rpg/api/token/single/'.$token,
             [
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
             ]
@@ -105,7 +105,7 @@ class TeyaApiClient extends TeyaClientBase
 
         $response = $this->http->sendRequest(new Request(
             'PUT',
-            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id."/refund",
+            $this->getEnvironmentUri() . self::$_PAYMENT_ENDPOINT."/".$id."/refund",
             [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')

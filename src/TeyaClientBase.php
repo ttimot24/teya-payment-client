@@ -5,7 +5,6 @@ namespace Ttimot24\TeyaPayment;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
-use GuzzleHttp\Psr7\Request;
 use Ttimot24\TeyaPayment\TeyaClientException;
 
 abstract class TeyaClientBase
