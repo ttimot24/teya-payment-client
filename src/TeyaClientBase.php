@@ -21,7 +21,7 @@ abstract class TeyaClientBase
     protected array $defaultConfig = ['debug' => true, 'http_errors' => false];
     protected array $mergedConfig = [];
 
-    public function __construct($config = [])   
+    public function __construct(array $config = [])   
     {
 
         $this->validateConfig($config);
@@ -32,7 +32,11 @@ abstract class TeyaClientBase
 
         $this->configureLogging();
  
-        $this->http = new \GuzzleHttp\Client($this->mergedConfig);
+        $this->setHttpClient(new \GuzzleHttp\Client($this->mergedConfig));
+    }
+
+    public function setHttpClient(\Psr\Http\Client\ClientInterface $client): void {
+        $this->http = $client;
     }
 
     private function configureLogging(): void {
@@ -64,6 +68,10 @@ abstract class TeyaClientBase
 
     public function setConfig($key, $value): void{
         $this->mergedConfig[$key] = $value; 
+    }
+
+    public function getAllConfig(): array {
+        return $this->mergedConfig;
     }
 
     public function getEnvironments(): array {
