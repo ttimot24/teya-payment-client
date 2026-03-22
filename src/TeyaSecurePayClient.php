@@ -3,6 +3,7 @@
 namespace Ttimot24\TeyaPayment;
 
 use Ttimot24\TeyaPayment\Model\TeyaItem;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use \Psr\Http\Message\ResponseInterface;
 
@@ -99,7 +100,14 @@ class TeyaSecurePayClient extends TeyaClientBase
 
         $this->getConfig('logger')?->debug('Ticket request: ', $data);
 
-        $response = $this->http->post(self::$_SERVER_PATH_PREFIX."/ticket.aspx", [RequestOptions::FORM_PARAMS => $data]);
+        $request = new Request(
+            'POST',
+            $this->getConfig('base_uri') . self::$_SERVER_PATH_PREFIX . "/ticket.aspx",
+            ['Content-Type' => 'application/x-www-form-urlencoded'],
+            http_build_query($data)
+        );
+
+        $response = $this->http->sendRequest($request);
 
         $response = $this->deserialize($response);
         $response['orderid'] = $data['orderid'];

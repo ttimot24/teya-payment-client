@@ -2,7 +2,7 @@
 
 namespace Ttimot24\TeyaPayment;
 
-use \GuzzleHttp\RequestOptions;
+use GuzzleHttp\Psr7\Request;
 
 class TeyaApiClient extends TeyaClientBase
 {
@@ -30,8 +30,16 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "PreAuthorization";
         $data = $this->initialize($data);
 
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, [RequestOptions::JSON => $data, RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
-
+        $response = $this->http->sendRequest(new Request(
+            'POST',
+            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT,
+            [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ],
+            json_encode($data)
+        ));
+        
         return $response;
     }
 
@@ -40,32 +48,69 @@ class TeyaApiClient extends TeyaClientBase
         $data['TransactionType'] = "Sale";
         $data = $this->initialize($data);
 
-        $response = $this->http->post(self::$_PAYMENT_ENDPOINT, [RequestOptions::JSON => $data, RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+        $response = $this->http->sendRequest(new Request(
+            'POST',
+            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT,
+            [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ],
+            json_encode($data)
+        ));
 
         return $response;
     }
 
     public function transaction($id){
 
-        $response = $this->http->get(self::$_PAYMENT_ENDPOINT."/".$id, [RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+        $response = $this->http->sendRequest(new Request(
+            'GET',
+            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id,
+            [
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ]
+        ));
 
         return $response;
     }
 
     public function capture($id){
-        $response = $this->http->put(self::$_PAYMENT_ENDPOINT."/".$id."/capture", [RequestOptions::JSON => [], RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+
+        $response = $this->http->sendRequest(new Request(
+            'PUT',
+            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id."/capture",
+            [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ]
+        ));
 
         return $response;
     }
 
     public function cancel($token){
-        $response = $this->http->delete('/rpg/api/token/single/'.$token, [RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+
+        $response = $this->http->sendRequest(new Request(
+            'DELETE',
+            $this->getConfig('base_uri') . '/rpg/api/token/single/'.$token,
+            [
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ]
+        ));
 
         return $response;
     }
 
     public function refund($id){
-        $response = $this->http->put(self::$_PAYMENT_ENDPOINT."/".$id."/refund", [RequestOptions::JSON => [], RequestOptions::AUTH => [$this->getConfig('PrivateKey'), null]]);
+
+        $response = $this->http->sendRequest(new Request(
+            'PUT',
+            $this->getConfig('base_uri') . self::$_PAYMENT_ENDPOINT."/".$id."/refund",
+            [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode($this->getConfig('PrivateKey') . ':')
+            ]
+        ));
 
         return $response;
     }
