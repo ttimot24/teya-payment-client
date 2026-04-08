@@ -1,8 +1,8 @@
 <?php
 
-namespace Ttimot24\TeyaPayment;
+namespace Redwello\TeyaPayment;
 
-use Ttimot24\TeyaPayment\Model\TeyaItem;
+use Redwello\TeyaPayment\Model\TeyaItem;
 use GuzzleHttp\Psr7\Request;
 use \Psr\Http\Message\ResponseInterface;
 

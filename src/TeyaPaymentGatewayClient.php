@@ -1,11 +1,11 @@
 <?php 
 
-namespace Ttimot24\TeyaPayment;
+namespace Redwello\TeyaPayment;
 
 use \Psr\Http\Message\ResponseInterface;
-use Ttimot24\TeyaPayment\Model\TeyaMessageInterface;
-use Ttimot24\TeyaPayment\Model\TeyaTransactionMessage;
-use Ttimot24\TeyaPayment\Model\TeyaErrorMessage;
+use Redwello\TeyaPayment\Model\TeyaMessageInterface;
+use Redwello\TeyaPayment\Model\TeyaTransactionMessage;
+use Redwello\TeyaPayment\Model\TeyaErrorMessage;
 
 class TeyaPaymentGatewayClient extends TeyaApiClient
 {

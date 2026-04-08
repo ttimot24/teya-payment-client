@@ -25,7 +25,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
         $logger = new Logger('TeyaSecurePayClient');
         $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
 
-        $this->client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'logger' => $logger]);
+        $this->client = new Redwello\TeyaPayment\TeyaPaymentGatewayClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'logger' => $logger]);
 
     }
 
@@ -33,14 +33,14 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
         $message = $this->client->preauth($this->payment);
 
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertNotNull($message->getTransactionStatus());
     }
 
     public function testPayment(){
 
         $message = $this->client->payment($this->payment);
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertNotNull($message->getTransactionStatus());
     }
 
@@ -48,7 +48,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
         $message = $this->client->transaction('tr_29yag5DnGmMAsl-F79Xiomz2UxPpaX_g');
 
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertNotNull($message->getTransactionStatus());
     }
 
@@ -59,7 +59,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
         $preauth = $this->client->preauth($this->payment);
         $message = $this->client->capture($preauth->getTransactionId());
         var_dump($message);
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertEquals("Captured", $message->getTransactionStatus());
     }
 
@@ -67,7 +67,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
         $preauth = $this->client->preauth($this->payment);
         $message = $this->client->cancel($preauth->getTransactionId());
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertEquals("Cancelled", $message->getTransactionStatus());
     }
 
@@ -75,7 +75,7 @@ class TeyaPaymentGatewayClientTest extends TestCase {
 
         $preauth = $this->client->preauth($this->payment);
         $message = $this->client->refund($preauth->getTransactionId());
-        $this->assertInstanceOf(\Ttimot24\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
+        $this->assertInstanceOf(\Redwello\TeyaPayment\Model\TeyaTransactionMessage::class, $message);
         $this->assertEquals("Refunded", $message->getTransactionStatus());
     }
 

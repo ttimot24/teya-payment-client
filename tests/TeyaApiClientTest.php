@@ -26,7 +26,7 @@ class TeyaApiClientTest extends TestCase {
         $logger = new Logger('TeyaSecurePayClient');
         $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
 
-        $this->client = new Ttimot24\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'logger' => $logger]);
+        $this->client = new Redwello\TeyaPayment\TeyaApiClient(['PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX', 'logger' => $logger]);
 
     }
 

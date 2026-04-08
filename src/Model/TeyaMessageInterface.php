@@ -1,6 +1,6 @@
 <?php 
 
-namespace Ttimot24\TeyaPayment\Model;
+namespace Redwello\TeyaPayment\Model;
 
 abstract class TeyaMessageInterface {
 
