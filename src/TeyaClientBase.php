@@ -5,7 +5,7 @@ namespace Redwello\TeyaPayment;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
-use Ttimot24\TeyaPayment\TeyaClientException;
+use Redwello\TeyaPayment\TeyaClientException;
 
 abstract class TeyaClientBase
 {
