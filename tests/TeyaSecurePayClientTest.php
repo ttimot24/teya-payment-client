@@ -3,7 +3,10 @@
 use PHPUnit\Framework\TestCase;
 
 use Monolog\Logger;
+use Monolog\Level;
 use Monolog\Handler\StreamHandler;
+use Redwello\TeyaPayment\TeyaSecurePayClient;
+use Redwello\TeyaPayment\Model\TeyaItem;
 
 class TeyaSecurePayClientTest extends TestCase {
 
@@ -13,10 +16,10 @@ class TeyaSecurePayClientTest extends TestCase {
 
 
         $logger = new Logger('TeyaSecurePayClient');
-        $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
+        $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), Level::Debug);
 
 
-        $this->client = new Redwello\TeyaPayment\TeyaSecurePayClient([
+        $this->client = new TeyaSecurePayClient([
             'MerchantId' => '9256684', 
             'PaymentGatewayId' => 7, 
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
@@ -30,7 +33,7 @@ class TeyaSecurePayClientTest extends TestCase {
 
     public function testSignatureCalulation(){
 
-        $signatureClient = new Redwello\TeyaPayment\TeyaSecurePayClient([
+        $signatureClient = new TeyaSecurePayClient([
             'MerchantId' => '9123456', 
             'PaymentGatewayId' => 16, 
             'SecretKey' => '1234567890abcdef',
@@ -63,7 +66,7 @@ class TeyaSecurePayClientTest extends TestCase {
     public function testStartTransaction(){
 
         $this->client->addItems([
-            new \Redwello\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
+            new TeyaItem('Test Item', 1, 10000)
         ]);
 
         $response = $this->client->start([
