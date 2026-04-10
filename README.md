@@ -9,7 +9,7 @@ Teya PHP Client Library is a PHP package designed to interact with the Teya API,
 
 ### Install
 ```sh
-composer require ttimot24/teya-payment-client
+composer require redwello/teya-payment-client
 ```
 
 ### RPG Payment Gateway
@@ -17,7 +17,7 @@ composer require ttimot24/teya-payment-client
 [Official documentation](https://docs.borgun.is/paymentgateways/bapi/)
 
 ```php
-$client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
+$client = new Redwello\TeyaPayment\TeyaPaymentGatewayClient([
     'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX'
     ]);
 
@@ -40,7 +40,7 @@ $client->payment([
 [Official documentation](https://docs.borgun.is/hostedpayments/securepay/#introduction)
 
 ```php
-        $client = new Ttimot24\TeyaPayment\TeyaSecurePayClient([
+        $client = new Redwello\TeyaPayment\TeyaSecurePayClient([
             'MerchantId' => '9256684', 
             'PaymentGatewayId' => 7, 
             'SecretKey' => 'cdedfbb6ecab4a4994ac880144dd92dc',
@@ -50,7 +50,7 @@ $client->payment([
         ]);
 
         $this->client->addItems([
-            new \Ttimot24\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
+            new \Redwello\TeyaPayment\Model\TeyaItem('Test Item', 1, 10000)
         ]);
 
         //prepare transaction and redirect user
@@ -72,7 +72,7 @@ $client->payment([
  $logger = new Logger('TeyaSecurePayClient');
  $logger->pushHandler(new StreamHandler('teya_secure_pay_client.log'), \Monolog\Level::Debug);
 
- $client = new Ttimot24\TeyaPayment\TeyaPaymentGatewayClient([
+ $client = new Redwello\TeyaPayment\TeyaPaymentGatewayClient([
             'PrivateKey' => '856293_pr0lxnW8PG1SeCwVJ3WPH0lXCeU0/sYLtX'
             'logger' => $logger
         ]);

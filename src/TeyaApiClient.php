@@ -1,6 +1,6 @@
 <?php 
 
-namespace Ttimot24\TeyaPayment;
+namespace Redwello\TeyaPayment;
 
 use GuzzleHttp\Psr7\Request;
 

@@ -1,5 +1,5 @@
 {
-    "name": "ttimot24/teya-payment-client",
+    "name": "redwello/teya-payment-client",
     "description": "PHP Teya Payment Client Library",
     "type": "library",
     "require": {
@@ -13,13 +13,13 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ttimot24\\TeyaPayment\\": "src/"
+            "Redwello\\TeyaPayment\\": "src/"
         }
     },
     "authors": [
         {
             "name": "Timot Tarjani",
-            "email": "ttimotster@gmail.com"
+            "email": "timot.tarjani@redwello.com"
         }
     ],
     "scripts": {

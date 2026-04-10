@@ -1,15 +1,17 @@
 <?php 
 
-namespace Ttimot24\TeyaPayment;
+namespace Redwello\TeyaPayment;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
-use Ttimot24\TeyaPayment\TeyaClientException;
+use Psr\Http\Client\ClientInterface;
+use Redwello\TeyaPayment\TeyaClientException;
 
 abstract class TeyaClientBase
 {
-    protected \Psr\Http\Client\ClientInterface $http;
+    protected ClientInterface $http;
 
     protected array $environments = [
         'sandbox' => 'https://test.borgun.is', 
@@ -32,10 +34,10 @@ abstract class TeyaClientBase
 
         $this->configureLogging();
  
-        $this->setHttpClient(new \GuzzleHttp\Client($this->mergedConfig));
+        $this->setHttpClient(new Client($this->mergedConfig));
     }
 
-    public function setHttpClient(\Psr\Http\Client\ClientInterface $client): void {
+    public function setHttpClient(ClientInterface $client): void {
         $this->http = $client;
     }
 
